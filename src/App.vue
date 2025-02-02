@@ -2,14 +2,16 @@
 import {ref, watch} from "vue";
 import NumberFlow from '@number-flow/vue'
 import InfoBlock from "./components/InfoBlock.vue";
-import { ArrowUp, Brain, Code, Bug, Shield, AlertCircle } from "lucide-vue-next";
+import { Zap, Brain, Code, Bug, Shield, AlertCircle } from "lucide-vue-next";
+import MemesCarousel from "@/components/MemesCarousel.vue";
+import ThemePickerButton from "@/components/ThemePickerButton.vue";
 
 
 const infoBlocks = [
 
   {
     title: "Типизация",
-    mainText: "Чел... в XXI веке с динамической типизацией",
+    mainText: "Прекрасная и всеми любимая статическая типизация",
     icon: Brain,
   },
   {
@@ -28,19 +30,20 @@ const infoBlocks = [
     icon: Code,
   },
   {
-    title: "JS боль",
-    mainText: "У всех глаза высыхают, когда видят файлы с расширением .js",
+    title: "ХЗ что писать",
+    mainText: "",
     icon: AlertCircle,
   },
   {
-    title: "JavaScript говно",
-    mainText: "Реально говно - это общепринятый факт",
-    icon: ArrowUp,
+    title: "Blazingly fast",
+    mainText: "And memory effective",
+    icon: Zap,
   },
 ];
 
 const gayTheme = ref(false);
 const tsAge = ref(0);
+const darkTheme = ref(true);
 
 function calculateTypescriptAge(): number {
   const creationDate = new Date(2012, 9, 1);
@@ -51,6 +54,16 @@ function calculateTypescriptAge(): number {
   const years = diffMs / msPerYear;
   return Number(years.toFixed(10));
 }
+
+
+watch(darkTheme, ()=>{
+  console.log('wathing');
+  if (!darkTheme.value) {
+    document.getElementById('app-container')?.classList.add('light')
+    return
+  }
+  document.getElementById('app-container')?.classList.remove('light')
+});
 
 watch(gayTheme, ()=>{
   if (gayTheme.value) {
@@ -68,33 +81,42 @@ setInterval(() => {
 
 
 <template>
-  <button @click="gayTheme = !gayTheme" class="ml-4 mb-4 absolute bottom-0 left-0 text-sm p-2 rounded-2xl border border-slate-400">
-    {{!gayTheme ? 'Enable' : 'Disable'}} furry theme
-  </button>
-  <div class="flex p-16 flex-col items-center align-center gap-10">
-    <h1 id="tswins" class="tswins font-bold text-5xl">TS победа уже</h1>
-    <div>
-      <NumberFlow
-          class="text-6xl"
-          :value="tsAge"
-          :format="{ minimumFractionDigits: 8, maximumFractionDigits: 8 }"
-      />
-      <span class="text-3xl opacity-45">лет</span>
+  <div id="app-container"  class="app-container">
+    <ThemePickerButton @theme-change="darkTheme = !darkTheme"/>
+    <button
+        @click="gayTheme = !gayTheme"
+        class="fixed bottom-4 left-4 text-sm p-2 rounded-2xl border border-slate-400 bg-gray-800/10 backdrop-blur-md z-20 transition"
+    >
+      {{ !gayTheme ? 'Enable' : 'Disable' }} furry theme
+    </button>
+    <div class="flex p-16 flex-col items-center align-center gap-10">
+      <h1 id="tswins" class="tswins font-bold text-5xl">TS победа уже</h1>
+      <div>
+        <NumberFlow
+            class="text-6xl"
+            :value="tsAge"
+            :format="{ minimumFractionDigits: 8, maximumFractionDigits: 8 }"
+        />
+        <span class="text-3xl opacity-45">лет</span>
+      </div>
+
+      <div class="grid mt-10 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
+        <InfoBlock
+            v-for="(block, index) in infoBlocks"
+            :key="index"
+            :title="block.title"
+            :mainText="block.mainText"
+        >
+          <component :is="block.icon" />
+        </InfoBlock>
+
+      </div>
+      <MemesCarousel class=""/>
+
+
     </div>
-
-    <div class="grid mt-10 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
-      <InfoBlock
-          v-for="(block, index) in infoBlocks"
-          :key="index"
-          :title="block.title"
-          :mainText="block.mainText"
-      >
-        <component :is="block.icon" />
-      </InfoBlock>
-    </div>
-
-
   </div>
+
 </template>
 
 <style scoped>
@@ -102,6 +124,12 @@ setInterval(() => {
 .tswins.gay{
   animation: colorFlow 3s infinite alternate;
 }
+
+.app-container.light{
+  background: #fff;
+  color: black
+}
+
 
 @keyframes colorFlow {
   0% { color: red; }
