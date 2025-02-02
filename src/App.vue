@@ -99,7 +99,6 @@ setInterval(() => {
         />
         <span class="text-3xl opacity-45">лет</span>
       </div>
-
       <div class="grid mt-10 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
         <InfoBlock
             v-for="(block, index) in infoBlocks"
@@ -111,8 +110,9 @@ setInterval(() => {
         </InfoBlock>
 
       </div>
-      <MemesCarousel class=""/>
 
+      <MemesCarousel class=""/>
+      <a href="https://t.me/laynexx" class="underline pb-10">Предложить свой мем</a>
 
     </div>
   </div>
