@@ -29,7 +29,7 @@ const handleClick = () =>{
 
 <template>
   <button @click="handleClick" id="btn" class="absolute flex items-center justify-center lg:ml-8 sm:ml-4 sm:mt-4 lg:mt-8 size-12 rounded-2xl border border-white/50">
-    <MoonIcon v-if="dark.value"/>
+    <MoonIcon v-if="dark"/>
     <Sun v-else />
   </button>
 </template>
