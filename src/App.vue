@@ -89,11 +89,11 @@ setInterval(() => {
     >
       {{ !gayTheme ? 'Enable' : 'Disable' }} furry theme
     </button>
-    <div class="flex p-16 flex-col items-center align-center gap-10">
-      <h1 id="tswins" class="tswins font-bold text-5xl">TS победа уже</h1>
+    <div class="flex sm:p-16 p-4 mt-20 flex-col items-center align-center gap-10">
+      <h1 id="tswins" class="tswins text-center font-bold text-5xl">TS победа уже</h1>
       <div>
         <NumberFlow
-            class="text-6xl"
+            class="sm:text-3xl lg:text-6xl text-4xl"
             :value="tsAge"
             :format="{ minimumFractionDigits: 8, maximumFractionDigits: 8 }"
         />
@@ -132,11 +132,11 @@ setInterval(() => {
 
 
 @keyframes colorFlow {
-  0% { color: red; }
-  20% { color: orange; }
-  40% { color: yellow; }
-  60% { color: green; }
-  80% { color: blue; }
+  0% { color: rgb(255, 70, 70); }
+  20% { color: #ffbb3d; }
+  40% { color: #ffff4f; }
+  60% { color: #3fff3f; }
+  80% { color: #5454ff; }
   100% { color: purple; }
 }
 
